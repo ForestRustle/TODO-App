@@ -1,14 +1,7 @@
 import React from 'react';
-import { Todo } from '../../interface/todo';
+import type { TodoListProps } from '../../interface/todo.interface';
 import { TodoItem } from '../TodoItem/TodoItem';
 import styles from './TodoList.module.css';
-
-interface TodoListProps {
-  todos: Todo[];
-  onToggle: (id: string) => void;
-  onDelete: (id: string) => void;
-  onEdit: (id: string, newText: string) => void;
-}
 
 export const TodoList: React.FC<TodoListProps> = ({
   todos,

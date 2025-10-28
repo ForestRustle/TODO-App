@@ -2,8 +2,9 @@ import { useMemo, useState } from 'react';
 import styles from './App.module.css';
 import { TodoForm } from './components/TodoForm/TodoForm';
 import { useLocalStorage } from './helpers/useLocalStorage';
-import type { FilterType, Todo } from './interface/todo';
+import type { FilterType, Todo } from './interface/todo.interface';
 import { TodoList } from './components/TodoList/TodoList';
+import { Filters } from './components/Filters/Filters';
 
 function App() {
   const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
@@ -37,7 +38,15 @@ function App() {
     }
   }, [todos, filter]);
 
-    const addTodo = (text: string) => {
+  const activeTodosCount = useMemo(
+    () => todos.filter((todo) => !todo.completed).length,
+    [todos]
+  );
+
+  const clearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.completed));
+  };
+  const addTodo = (text: string) => {
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       text: text.trim(),
@@ -59,6 +68,13 @@ function App() {
         onToggle={toggleTodo}
         onDelete={deleteTodo}
         onEdit={editTodo}
+      />
+      <Filters
+        currentFilter={filter}
+        onFilterChange={setFilter}
+        activeCount={activeTodosCount}
+        onClearCompleted={clearCompleted}
+        hasCompleted={todos.some((todo) => todo.completed)}
       />
     </div>
   );
