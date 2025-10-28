@@ -39,3 +39,16 @@ npm run preview
 ### Установка зависимостей
 ```bash
 npm install
+```
+### Запуск в режиме разработки
+```bash
+npm run dev
+```
+### Сборка для production
+```bash
+npm run build
+```
+### Просмотр собранной версии
+```bash
+npm run preview
+```
